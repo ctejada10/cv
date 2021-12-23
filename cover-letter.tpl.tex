@@ -1,0 +1,103 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+% Awesome CV LaTeX Template for Cover Letter
+% https://github.com/posquit0/Awesome-CV
+
+% Configs
+\documentclass[11pt, a4paper]{awesome-cv}
+\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+\fontdir[fonts/]
+\definecolor{awesome}{HTML}{222A68}
+\setbool{acvSectionColorHighlight}{false}
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+
+%	Personal Info
+\name{Carlos E.}{Tejada}
+%\position{PhD Fellow}
+\address{Anker Heegaards Gade 2, 4.th. 1752 Copenhagen W, Denmark}
+\mobile{+45 31 69 08 77}
+\email{carlos@carlosetejada.com}
+\homepage{www.carlosetejada.com}
+\googlescholar{oo_ptugAAAAJ}{Carlos E. Tejada}
+\github{ctejada10}
+
+
+%	Letter Info
+%% The company being applied to
+\recipient
+  {Super cool company}
+  {Company's Address}
+%% The date on the letter, default is the date of compilation
+\letterdate{\today}
+%% The title of the letter
+\lettertitle{Job Application for Job Title}
+%% How the letter is opened
+\letteropening{Dear hiring manager,}
+%% How the letter is closed
+\letterclosing{Best regards,\\ \\}
+%% Any enclosures with the letter
+\letterenclosure[Attached]{Curriculum Vitae}
+
+
+\begin{document}
+
+	% Print the header with above personal informations
+	\makecvheader
+	\makecvfooter
+		{}
+		{Carlos E. Tejada~~~·~~~Cover Letter}
+		{}
+	
+	% Print the title with above letter informations
+	\makelettertitle
+
+	% Content
+	\begin{cvletter}
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam augue ligula,
+		interdum ac velit sed, pretium ornare massa. Nunc vulputate lacinia erat,
+		eget placerat quam dictum non. Morbi imperdiet leo diam, eget feugiat velit
+		feugiat sed. Maecenas pharetra mollis magna eu feugiat. Quisque nec sagittis
+		felis. Sed posuere eros vitae ipsum euismod viverra. Fusce ac efficitur
+		sapien. Suspendisse pulvinar blandit dolor, at porttitor massa imperdiet in.
+		Fusce id eros orci. Donec ultrices pellentesque mi at feugiat. Proin sed
+		mauris quis nibh accumsan tempor. Etiam feugiat est a felis molestie, id
+		vestibulum nisl luctus. Vivamus semper, libero a lobortis condimentum,
+		turpis massa feugiat libero, vel tincidunt urna sapien nec nisi. Duis purus
+		quam, vestibulum ut finibus a, dignissim ullamcorper urna. Suspendisse
+		potenti.
+
+		Vivamus sollicitudin, nisl maximus elementum blandit, diam risus condimentum
+		mauris, et egestas erat turpis id sapien. Nulla vel augue ut diam pulvinar
+		ullamcorper vel quis justo. Nullam id efficitur nunc. Nunc interdum euismod
+		velit, ac finibus ligula convallis id. Curabitur fringilla massa ac augue
+		faucibus, non tincidunt elit hendrerit. In pretium elit non diam interdum,
+		nec sodales odio congue. Maecenas congue urna purus, eu hendrerit ipsum
+		posuere eget. Nunc gravida ac tortor ut ullamcorper. Praesent faucibus nibh
+		et orci posuere, eget pulvinar lacus tristique. Sed consectetur iaculis
+		enim, aliquam pellentesque felis suscipit vel. Nam faucibus, elit quis
+		pretium volutpat, quam lacus sagittis velit, sed tristique massa felis vel
+		felis. Aliquam tempor velit sed libero imperdiet, ut sollicitudin risus
+		gravida. Fusce auctor elementum nibh vel elementum. Nullam laoreet nisi
+		tellus, rhoncus aliquam felis porttitor nec.
+
+		Etiam consequat nisi augue, vitae mattis tortor pulvinar ac. Vivamus dictum
+		libero vel enim consectetur, at consectetur nunc tincidunt. Maecenas lectus
+		tortor, sodales ac magna ut, sollicitudin commodo nisi. Morbi ornare orci
+		sit amet facilisis varius. Sed venenatis augue quis mauris ultricies, vel
+		ullamcorper nulla porttitor. Sed scelerisque molestie velit et placerat.
+		Quisque convallis sed risus at vestibulum. Nullam tellus mi, lobortis ut
+		tempor at, dignissim eu enim. Lorem ipsum dolor sit amet, consectetur
+		adipiscing elit. In hendrerit consectetur nunc ut pulvinar. Sed auctor
+		lobortis enim, in vehicula elit fringilla in. Morbi auctor sapien et augue
+		pulvinar viverra. Etiam et nibh bibendum, volutpat ex eu, venenatis magna.
+		Cras rhoncus neque justo. Nam gravida aliquam porta. Aliquam ut diam mauris.
+
+		Please let me know if there's anything else you need from me. I look forward
+		to hearing from you! I can be reached at carlos@carlosetejada.com and 31 69
+		08 77.
+	\end{cvletter}
+
+	\makeletterclosing
+
+\end{document}
