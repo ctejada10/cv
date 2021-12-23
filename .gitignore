@@ -274,10 +274,6 @@ TSWLatexianTemp*
 # xwatermark package
 *.xwm
 
-# Cover letters
-*.cover-letter.tex
-
-# Template files
-*.tpl.*
-
 # Obtained from https://github.com/github/gitignore/blob/master/TeX.gitignore
+
+cover-letters/*
