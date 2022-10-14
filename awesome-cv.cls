@@ -651,6 +651,12 @@
 \newcommand*{\cvpublication}[5]{%
   \publicationidstyle{\hfill#1\hfill} & \publicationauthorsstyle{#3}. \publicationtitlestyle{#2}. \publicationvenuestyle{#4}, \publicationpagesstyle{#5}. & \\
 }
+\newcommand*{\cvthesis}[5]{%
+  \publicationidstyle{\hfill#1\hfill} & \publicationtitlestyle{\emph{Title:} {#2}} \\
+  \publicationtitlestyle{\emph{Completed:} {#3}} \\
+  \publicationtitlestyle{\emph{Advisor:} {#4}} \\
+  \publicationtitlestyle{\emph{Institution:} {#5}} \\
+}
 
 % Define an environment for cvreviews
 \newenvironment{cvreviews}{%
