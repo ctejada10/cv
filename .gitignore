@@ -277,3 +277,5 @@ TSWLatexianTemp*
 # Obtained from https://github.com/github/gitignore/blob/master/TeX.gitignore
 
 cover-letters/*
+/.vscode
+.DS_Store
