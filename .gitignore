@@ -291,6 +291,8 @@ TSWLatexianTemp*
 __pycache__/
 # Referees' addresses, emails and phone numbers: other people's data.
 /cv/references.tex
+# Phone number, kept out of the public repo; read by master/facts.tex.
+/master/contact.local.tex
 /scrub-history.sh
 .claude/settings.local.json
 /legacy/

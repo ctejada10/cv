@@ -1,3 +1,10 @@
+The scripts and LaTeX sources written for this repository are licensed under
+the MIT License below. The CV and résumé content (the facts, publications,
+accomplishments and letters) is not covered by it: all rights reserved.
+awesome-cv.cls and awesome-resume.cls come from Awesome-CV
+(https://github.com/posquit0/Awesome-CV) under the LaTeX Project Public
+License 1.3c, and the fonts in fonts/ keep their own licences (fonts/README.md).
+
 MIT License
 
 Copyright (c) 2020 Carlos E. Tejada

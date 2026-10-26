@@ -45,9 +45,6 @@ Two catalog-only flags block nothing: `uw-rag-eval` (add how you evaluated the
 LLM descriptions — that's what makes LLM work credible) and `nc-sparktuning` (a
 claim from one old variant).
 
-Two errors to fix in `cv/publications.tex`: LaCir is CHI 2024, not 2021, and
-MorpheesPlug reuses AirTouch's DOI.
-
 ## 3. Role types
 
 | Type | For | Leads with | Letter defaults |

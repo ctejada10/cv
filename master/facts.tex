@@ -21,7 +21,11 @@
 \newcommand{\FactPostNominal}{, Ph.D.}
 % Use the city you live in. Only write "New York, NY" if that's true.
 \newcommand{\FactCity}{NYC metro area}          % confirmed 2026-09-12
-\newcommand{\FactPhone}{}
+% The phone number stays out of this public repo. Define \FactPhone in the
+% git-ignored master/contact.local.tex, e.g.
+%   \newcommand{\FactPhone}{\slink{tel:+1XXXXXXXXXX}{XXX-XXX-XXXX}}
+% Without that file the header simply leaves the phone out.
+\IfFileExists{master/contact.local.tex}{\input{master/contact.local.tex}}{}
 \newcommand{\FactEmail}{\slink{mailto:carlos@carlosetejada.com}{carlos@carlosetejada.com}}
 \newcommand{\FactWebsite}{\slink{https://carlosetejada.com}{carlosetejada.com}}
 % Put your LinkedIn handle in BOTH places below, then remove \unverified.
@@ -159,8 +163,6 @@
 \newcommand{\FactPapers}{eight}         % full conference papers
 \newcommand{\FactFirstAuthor}{four}    % first-authored full papers: AirLogic, AirTouch, EchoTube, Blowhole
 \newcommand{\FactVenues}{CHI, UIST, ISS, TEI, MobileHCI and GI}
-% Two errors in cv/publications.tex to fix there: LaCir is CHI 2024 (its DOI is
-% a CHI '24 DOI; the CV says 2021), and MorpheesPlug reuses AirTouch's DOI.
 
 % ---------------- Totals used in summaries ----------------
 % Recompute once the dates above are settled.
