@@ -1,0 +1,167 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+% =====================================================================
+% cover-letter.master.tex -- MASTER COVER LETTER
+% ---------------------------------------------------------------------
+% A one-page letter in five blocks (250--350 words), with a bank of
+% proof paragraphs you reuse and slots you must write fresh each time.
+%
+%   1. Hook        45--65 words  CUSTOM  the role, and the one true sentence
+%                                        about why this posting and not another
+%   2. Proof 1     70--90 words  BANK + one custom sentence tying it to them
+%   3. Proof 2     60--80 words  BANK + one transition sentence
+%   4. Why them    40--60 words  CUSTOM  where you have actually touched their
+%                                        work, and the problem you'd start on
+%   5. Close       20--35 words  BANK (fill its slot)
+%
+% THE RULE THAT MATTERS MOST: the letter must carry what the resume cannot.
+% The resume already says what you built and what it scored. The letter says
+% what the decision was, what surprised you, what you did when it broke, what
+% you enjoyed. A paragraph that only restates a bullet in longer sentences is
+% wasted paper (Green, Ask a Manager: a letter should not be "your resume in
+% different words"). Her rewrite that works reads "I probably was the first to
+% read the entire manual, which made me 'the P560 person'" -- a small, concrete,
+% slightly odd fact that no one else could write.
+%
+% Why this shape: since AI writing tools arrived, letters that echo a posting's
+% keywords stopped predicting callbacks (Cui, Dias & Ye 2025; Galdin & Silbert
+% 2025), and Harvard's 2026 guidance warns that recruiters now spot unedited AI
+% by its generic, over-formal register. So specificity is the whole strategy.
+%
+% Banned from every block, because they are what the generated letters do:
+%   * restating the posting's requirements back at them
+%   * praise of the company that could be copied into any other letter
+%     ("you ship at scale and still publish", "industry leader")
+%   * claiming you exceed the requirements
+%   * a paragraph-closing aphorism, and the em-dash pivot that sets it up
+%   * "I am writing to express my interest"; weak verbs (helped with, assisted)
+%   * announcing what you do NOT have ("I don't have a clean answer to that")
+%
+% BLOCK 4 in particular is not a compliment. It is the place where you have
+% actually touched their work: a product you use, a paper you read, a tool you
+% built on, a bug you hit, a dataset you pulled. If nothing like that is true,
+% cut the block rather than fill it with admiration.
+%
+% Build:
+%   scripts/build.sh master  -> build/master/cover-letter-master.pdf
+%                               (skeleton + every bank paragraph)
+%   scripts/build.sh app applications/<file>.tex -> Carlos-Tejada-Cover-Letter.pdf
+% =====================================================================
+\documentclass[11pt, letterpaper]{awesome-resume}
+\input{master/preamble.tex}
+\input{master/facts.tex}
+\def\CatalogHeadline{MASTER COVER LETTER \textbar{} skeleton and paragraph bank \textbar{} not for sending}
+\hypersetup{pdftitle={Carlos E. Tejada - Cover Letter}, pdfauthor={Carlos E. Tejada}, pdfsubject={Cover letter}}
+\headlinefor{ds}{Data Science \& Applied Machine Learning \textbar{} Ph.D. in Computer Science (HCI)}
+\headlinefor{mle}{Machine Learning Engineering \textbar{} Python, NLP \& LLM Applications \textbar{} Ph.D. in Computer Science}
+\headlinefor{de}{Data Engineering \textbar{} Azure, PySpark \& SQL \textbar{} Ph.D. in Computer Science}
+\headlinefor{rs}{Human-Centered AI, Digital Fabrication \& Accessibility \textbar{} Ph.D. in Computer Science (HCI)}
+\headlinefor{uxr}{Mixed-Methods UX Research \textbar{} Accessibility \& AI Tools \textbar{} Ph.D. in Computer Science (HCI)}
+
+% =====================================================================
+% PARAGRAPH BANK   \letterpara{id}{role types}{text}
+% Facts come from master/facts.tex. Reuse these as they are; if one needs
+% rewording for a posting, override the whole block in the application file.
+% =====================================================================
+
+% ---- Proof paragraphs (block 2 or 3) ----
+\letterpara{proof-nc-pipeline}{ds,de,mle}{At \FactNCShort, a \FactNCAbout, I built the Azure/PySpark pipeline that turned billions of vehicle-telemetry records a month into the trip-level tables our predictive models ran on, and I was the technical contact for the \FactNCTeams{} sales, operations and business-development teams that used its output. Because our clients' contracts required it, I also put role-based access control and audit logging on sensitive data across \FactNCClients{} client systems.}
+
+\letterpara{proof-nc-nlp}{ds,mle}{For a government client at \FactNCShort{} I built and deployed a \FactNCLanguages-language document classifier (scikit-learn, TensorFlow) that replaced manual triage on tens of thousands of documents a month at \FactNCFone{} F1. The documents drifted, so holding that number took periodic retraining and versioned deployment, not one good evaluation at launch.}
+
+\letterpara{proof-nc-tools}{ds,de,uxr}{I also automated the reporting behind \FactNCToolTeams{} teams' weekly work with Python and SQL services and Power BI dashboards. That cut reporting overhead by \FactNCOverhead{} and gave non-technical colleagues self-service access to data that used to take a request to engineering.}
+
+\letterpara{proof-uw-rag}{ds,mle,rs}{At the \FactUWOrg{} I built a retrieval-augmented companion that describes 3D models to blind users. The engineering went into retrieval rather than prompting: the system scores every cross-section of a model, selects the most informative, and the LLM only describes slices it has been handed. Without it the model invents geometry that is not there, which someone reading a braille display cannot catch.}
+% ASK CARLOS: one real instance -- a description the model invented, or a slice that
+% scored well and turned out useless. A named failure beats a stated failure mode.
+
+\letterpara{proof-uw-study}{ds,rs,uxr}{This summer I led a qualitative study with \FactUWStudyN{} blind and low-vision participants, who compared 3D-printed objects with virtual models on a refreshable braille display while thinking aloud. Because I had instrumented every command in the system, we could pair the thematic analysis with how each person actually explored: which views they chose, how deep they sliced, and how their strategy changed between tasks. I'm the lead author on the resulting submission.}
+
+\letterpara{proof-uw-system}{mle,rs,uxr}{I'm the lead developer of a system that lets blind and low-vision people explore and edit 3D models by touch. A Python backend slices the model on demand and streams each cross-section to refreshable pin displays (APH Monarch, Dot Pad) from a screen-reader-accessible web app that runs in Chrome with nothing to install. I designed its interaction model with a DeafBlind co-designer, who is a co-author on the work.}
+
+\letterpara{proof-aarhus-llm}{mle,rs}{At \FactAUOrg{} I built two LLM tools: a design assistant that turns natural-language prompts into CAD for interactive, 3D-printable devices, and a query tool that let non-technical collaborators ask questions of research datasets in plain language. In both, most of the work was validating what the model produced against the constraints of the workflow it fed: geometry that has to be printable, answers that have to be checkable against the data.}
+
+\letterpara{proof-capstone-leak}{ds,mle,de,rs}{For my M.Sc. capstone I built a classifier that identified materials from how they sounded, so a laser cutter could load the right settings by itself. Five-fold cross-validation said \FactKoWLeak. Then it failed on recordings it hadn't seen. Samples from a single microphone placement had landed on both sides of the split, so the model had learned the placement rather than the material. I rebuilt the evaluation on held-out placements, and the honest number was \FactKoWAccuracy.}
+
+\letterpara{proof-phd-experiments}{ds,rs,uxr}{During my Ph.D. I invented and evaluated \FactFirstAuthor{} sensing techniques for 3D-printed and flexible objects, and each design came out of measurement rather than intuition: I swept chamber geometry, outlet spacing and tube dimensions against ground truth and let the data choose the parameters. The classifiers on top reached \FactPhDAccuracy{} accuracy with no per-user calibration, and \FactPhDBlowAccuracy{} cross-validated on \FactPhDSamples{} labeled samples from \FactPhDDataParticipants{} participants. The work produced \FactFirstAuthor{} first-author papers at CHI, UIST, ISS and GI.}
+
+\letterpara{proof-mentoring}{mle,rs,uxr}{I also like making other people's work go faster. At the \FactUWOrg{} I mentor \FactUWMentees{} undergraduate researchers building view-selection and slice-scoring pipelines for our system, and during my Ph.D. I supervised \FactPhDTheses{} master's theses, one of which became a TEI paper.}
+
+% ---- Transition sentences (end of block 3): say the move plainly, no apology ----
+\letterpara{transition-ds}{ds}{After two postdocs I'm returning to industry, because I want my analysis to change what gets built and to be measured on real users.}
+\letterpara{transition-mle}{mle}{I'm returning to industry because I want to build ML systems that stay in production, with the monitoring and iteration that research prototypes rarely get.}
+\letterpara{transition-de}{de}{I'm returning to industry because I want to own data systems that other teams rely on every day.}
+\letterpara{transition-rs}{rs}{I'm looking for an industry lab because my best research has started from real products and real users, and ended with something they could use.}
+\letterpara{transition-uxr}{uxr}{I'm moving into UX research because the part of my work I value most is watching people use what we built and turning that into the next decision.}
+
+% ---- Closes (block 5) ----
+\letterpara{close-standard}{ds,mle,de,uxr}{I'd welcome the chance to talk about \slot{the problem from your hook, in a few words}. Thank you for your time and consideration.}
+\letterpara{close-research}{rs}{I'd be glad to talk about how this work could extend to \slot{their research area or product}. Thank you for your consideration.}
+\letterpara{close-plain}{ds,mle,de,rs,uxr}{Thank you for your time and consideration. I'd welcome the chance to talk.}
+
+% =====================================================================
+% DEFAULTS -- an application file overrides any of these with \def
+% =====================================================================
+\csdef{defaultA@ds}{proof-nc-nlp}        \csdef{defaultB@ds}{proof-uw-study}         \csdef{defaultT@ds}{transition-ds}
+\csdef{defaultA@mle}{proof-nc-nlp}       \csdef{defaultB@mle}{proof-uw-rag}          \csdef{defaultT@mle}{transition-mle}
+\csdef{defaultA@de}{proof-nc-pipeline}   \csdef{defaultB@de}{proof-nc-tools}         \csdef{defaultT@de}{transition-de}
+\csdef{defaultA@rs}{proof-uw-system}     \csdef{defaultB@rs}{proof-phd-experiments}  \csdef{defaultT@rs}{transition-rs}
+\csdef{defaultA@uxr}{proof-uw-study}     \csdef{defaultB@uxr}{proof-uw-system}       \csdef{defaultT@uxr}{transition-uxr}
+\csdef{defaultClose@rs}{close-research}
+% Skeleton text for the catalog view
+\csgdef{para@skeleton-a}{\slot{Proof 1, 70--90 words: a bank paragraph (listed on the next page) + one sentence carrying what the resume cannot}}
+\csgdef{para@skeleton-b}{\slot{Proof 2, 60--80 words: a second bank paragraph}}
+\csgdef{para@skeleton-t}{\slot{one transition sentence from the bank}}
+\csdef{defaultA@all}{skeleton-a}  \csdef{defaultB@all}{skeleton-b}  \csdef{defaultT@all}{skeleton-t}
+
+\providecommand{\Company}{\slot{Company}}
+\providecommand{\Role}{\slot{Role title, exactly as posted}}
+\providecommand{\ReqID}{}
+\providecommand{\TeamClause}{}
+\providecommand{\RecipientName}{Hiring Team}
+\providecommand{\RecipientLines}{\Company}
+\providecommand{\LetterDate}{\today}
+\providecommand{\LetterSalutation}{Dear \Company{} Hiring Team,}
+\providecommand{\LetterHook}{I'm applying for the \Role{} role\TeamClause{} at \Company. \slot{Hook, 45--65 words in all: the one true sentence about why this posting and not another. Not their words quoted back at them}}
+\providecommand{\LetterProofA}{\usepara{\csuse{defaultA@\archetype}}}
+\providecommand{\LetterProofACustom}{\slot{one sentence: the judgement call inside that work, or what it cost you to learn -- something the resume bullet cannot hold}}
+\providecommand{\LetterProofB}{\usepara{\csuse{defaultB@\archetype}}}
+\providecommand{\LetterProofBCustom}{}
+\providecommand{\LetterTransition}{\usepara{\csuse{defaultT@\archetype}}}
+\providecommand{\LetterWhyThem}{\slot{Why \Company, 40--60 words: where you have actually touched their work -- used the product, read the paper, built on the tool, hit the bug -- and the problem you would start on. No praise. If nothing here is true, delete this block}}
+\providecommand{\LetterClose}{\ifcsdef{defaultClose@\archetype}{\usepara{\csuse{defaultClose@\archetype}}}{\usepara{close-standard}}}
+\providecommand{\LetterSignoff}{Sincerely,}
+
+% ---------------- Layout ----------------
+\newcommand{\letterblock}[1]{\par #1\par\vspace{7pt}}
+\newcommand{\bankentry}[1]{%
+  \par\noindent{\fontsize{8.5pt}{11pt}\bodyfont\bfseries\color{awesome}#1}\hspace{0.4em}{\fontsize{8pt}{11pt}\bodyfont\color{gray}[\csuse{paratags@#1}]}\par
+  {\fontsize{9.5pt}{12pt}\bodyfont\color{text}\csuse{para@#1}}\par\vspace{6pt}}
+
+\begin{document}
+\masterheader
+\vspace{4mm}
+{\fontsize{10.5pt}{14pt}\bodyfont\color{text}%
+\LetterDate\par\vspace{8pt}
+\RecipientName\\\RecipientLines\par\vspace{8pt}
+\textbf{Application: \Role}\ifdefempty{\ReqID}{}{ (\ReqID)}\par\vspace{8pt}
+\LetterSalutation\par\vspace{7pt}
+\letterblock{\LetterHook}
+\letterblock{\LetterProofA\ifdefempty{\LetterProofACustom}{}{ \LetterProofACustom}}
+\letterblock{\LetterProofB\ifdefempty{\LetterProofBCustom}{}{ \LetterProofBCustom}}
+% The transition gets its own paragraph: gluing it to proof B made one long block
+% whenever the two came from different jobs.
+\ifdefempty{\LetterTransition}{}{\letterblock{\LetterTransition}}
+\letterblock{\LetterWhyThem}
+\letterblock{\LetterClose}
+\vspace{2pt}\LetterSignoff\par\vspace{10pt}
+\FactName\par}
+
+% ---------------- Catalog: every bank paragraph ----------------
+\ifcatalog
+  \newpage
+  \msection{Paragraph bank}
+  {\fontsize{9pt}{11.5pt}\bodyfont\color{gray}Pick by ID in an application file, e.g. \texttt{\textbackslash def\textbackslash LetterProofA\{\textbackslash usepara\{proof-nc-nlp\}\}}. Tags show the role types each paragraph suits.}\par\vspace{6pt}
+  \forlistloop{\bankentry}{\paralist}
+\fi
+\end{document}

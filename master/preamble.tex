@@ -1,0 +1,179 @@
+% =====================================================================
+% master/preamble.tex
+% Shared layout and machinery for resume.master.tex and
+% cover-letter.master.tex. Loaded right after \documentclass.
+% You shouldn't need to edit this file to apply for a job.
+% =====================================================================
+
+% ---------------------------------------------------------------------
+% 1. Page and text layout (tested fixes from the Résumé Audit, 2026-09-11)
+% ---------------------------------------------------------------------
+\geometry{letterpaper, left=1.5cm, right=1.5cm, top=1.1cm, bottom=1.2cm, footskip=.5cm}
+\fontdir[fonts/]
+\definecolor{awesome}{HTML}{222A68}
+\definecolor{flagcolor}{HTML}{D35400}
+\setbool{acvSectionColorHighlight}{false}
+\XeTeXinterwordspaceshaping=2                 % real spaces in the PDF text (pypdf reads words, not "Datascientistwith...")
+%% ...but shaping=2 also merges consecutive \href annotations on one line: the
+%% second link's start is swallowed, so the first link's hotspot stretches over
+%% the whole line. Every header link pointed at LinkedIn because of this, and
+%% tel:/mailto: produced no annotation at all. An \mbox around each link keeps
+%% its annotation intact. Use \slink, never a bare \href, wherever two or more
+%% links share a line.
+\newcommand{\slink}[2]{\mbox{\href{#1}{#2}}}
+\hyphenpenalty=10000 \exhyphenpenalty=10000   % never split a word across lines
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}                              % no footer: parsers read footers as body text
+\raggedright
+\usepackage{needspace}                        % keep a role's header with its first bullet
+
+% ---------------------------------------------------------------------
+% 2. Build modes
+%    Catalog  : \archetype = all  -> every bullet, with its ID and tags
+%    Base     : \archetype = ds | mle | de | rs | uxr
+%    Final    : application builds (\FinalBuildFlag defined) -> no highlights,
+%               but every unverified fact / unfilled slot is logged and the
+%               build script refuses to finish.
+% ---------------------------------------------------------------------
+\providecommand{\archetype}{all}
+\newif\ifcatalog
+\ifdefstring{\archetype}{all}{\catalogtrue}{\catalogfalse}
+\newif\ifFinalBuild
+\ifdefined\FinalBuildFlag \FinalBuildtrue \else \FinalBuildfalse \fi
+
+% ---------------------------------------------------------------------
+% One-page mode: \def\OnePageFlag{1} in an application file (or
+% scripts/build.sh bases --onepage). Prints the same facts, less of them:
+% each role keeps only its first \onepagemax bullets, roles wrapped in
+% \unlessonepage are dropped, and publications shrink to the summary line.
+% A bullet an application force-includes is never dropped.
+% ---------------------------------------------------------------------
+\newif\ifonepage
+\ifdefined\OnePageFlag \onepagetrue \else \onepagefalse \fi
+\newcounter{bulincluded}
+\def\OnePageMax{2}
+\newcommand{\onepagemax}[1]{\def\OnePageMax{#1}}
+\newcommand{\unlessonepage}[1]{\ifonepage\else#1\fi}
+
+% \unverified[label]{value}: a fact that disagrees between old files or needs your records
+\newcommand{\unverified}[2][]{%
+  \ifFinalBuild #2\else\textcolor{flagcolor}{#2\textsuperscript{?}}\fi
+  \typeout{UNVERIFIED FACT: #1 = \detokenize{#2}}}
+% \slot{what to write}: a placeholder that must be filled before sending
+\newcommand{\slot}[1]{%
+  \textcolor{red}{\textbf{[[SLOT: #1]]}}%
+  \typeout{UNFILLED SLOT: \detokenize{#1}}}
+
+% ---------------------------------------------------------------------
+% 3. Role-type (archetype) helpers
+% ---------------------------------------------------------------------
+\newcommand{\archcheck}[1]{\ifdefstring{\archetype}{#1}{\def\archhit{1}}{}}
+% \ifarch{ds,mle}{if the current role type is listed}{otherwise}
+\newcommand{\ifarch}[3]{\def\archhit{0}\forcsvlist{\archcheck}{#1}\ifdefstring{\archhit}{1}{#2}{#3}}
+% \onlyfor{rs,uxr}{content}: printed for those role types and in the catalog
+\newcommand{\onlyfor}[2]{\ifcatalog #2\else\ifarch{#1}{#2}{}\fi}
+% \catalogonly{content}: printed only in the catalog
+\newcommand{\catalogonly}[1]{\ifcatalog #1\fi}
+
+% Per-application include/exclude lists (set in an application file)
+\providecommand{\ExcludeIDs}{}
+\providecommand{\IncludeIDs}{}
+\def\excludedidslist{}
+\def\includedidslist{}
+\renewcommand*{\do}[1]{\listadd\excludedidslist{#1}}
+\expandafter\docsvlist\expandafter{\ExcludeIDs}
+\renewcommand*{\do}[1]{\listadd\includedidslist{#1}}
+\expandafter\docsvlist\expandafter{\IncludeIDs}
+
+% ---------------------------------------------------------------------
+% 4. Bullets: \bul{id}{role types}{text} ... \printbullets
+%    A bullet prints when the current role type is in its list (or in the
+%    catalog), unless the application excludes its ID; an application can
+%    force-include any ID. An application can also reword one bullet with
+%    \expandafter\def\csname override@<id>\endcsname{new text}.
+% ---------------------------------------------------------------------
+\newcommand{\bulletbuffer}{}
+\newcommand{\bulcheckfor}[1]{\ifdefstring{\archetype}{#1}{\def\bulhit{1}}{}}
+\newcommand{\catalogtag}[2]{\ifcatalog\hspace{0.35em}{\fontsize{7.5pt}{1em}\bodyfont\color{gray}[#1\,\textbar\,#2]}\fi}
+\newcommand{\bul}[3]{%
+  \def\bulhit{0}%
+  \ifcatalog\def\bulhit{1}\else\forcsvlist{\bulcheckfor}{#2}\fi
+  \ifinlist{#1}{\excludedidslist}{\def\bulhit{0}}{}%
+  \ifonepage
+    \ifdefstring{\bulhit}{1}%
+      {\ifnum\value{bulincluded}<\OnePageMax\relax\else\def\bulhit{0}\fi}{}%
+  \fi
+  \ifinlist{#1}{\includedidslist}{\def\bulhit{1}}{}%
+  \ifdefstring{\bulhit}{1}{%
+    \stepcounter{bulincluded}%
+    \ifcsdef{override@#1}%
+      {\appto\bulletbuffer{\item \csuse{override@#1}\catalogtag{#1}{#2}}}%
+      {\appto\bulletbuffer{\item #3\catalogtag{#1}{#2}}}}{}%
+}
+\newenvironment{rolebullets}{%
+  \begin{itemize}[leftmargin=1.05em, labelsep=0.45em, itemsep=1.2pt, parsep=0pt, topsep=1.5pt, partopsep=0pt, label={\textbullet}]%
+  \raggedright\fontsize{10pt}{12.4pt}\bodyfont\color{text}}%
+  {\end{itemize}}
+\newcommand{\printbullets}{%
+  \ifdefempty{\bulletbuffer}{}{\begin{rolebullets}\bulletbuffer\end{rolebullets}}%
+  \gdef\bulletbuffer{}\setcounter{bulincluded}{0}\def\OnePageMax{2}}
+
+% ---------------------------------------------------------------------
+% 5. Layout macros: header, sections, roles, skills, publications
+% ---------------------------------------------------------------------
+\def\theheadline{}
+\def\thesummary{}
+\def\theskills{}
+\newcommand{\catalogentry}[2]{\par\noindent{\fontsize{8.5pt}{1em}\bodyfont\bfseries\color{awesome}[#1]}\hspace{0.4em}#2\par\vspace{3pt}}
+% Headline (line under your name), summary and skills: one per role type
+\newcommand{\headlinefor}[2]{\ifarch{#1}{\gdef\theheadline{#2}}{}}
+\newcommand{\summaryfor}[2]{\ifcatalog\catalogentry{#1}{#2}\else\ifarch{#1}{\gdef\thesummary{#2}}{}\fi}
+\newcommand{\skillsfor}[2]{\ifcatalog\catalogentry{#1}{}#2\vspace{2pt}\else\ifarch{#1}{\gdef\theskills{#2}}{}\fi}
+\newcommand{\printheadline}{%
+  \ifdefined\HeadlineOverride\HeadlineOverride
+  \else\ifcatalog\ifdefined\CatalogHeadline\CatalogHeadline\else MASTER CATALOG \textbar{} every bullet for every role type \textbar{} not for sending\fi%
+  \else\theheadline\fi\fi}
+\newcommand{\printsummary}{%
+  \ifcatalog\else{\fontsize{10pt}{12.6pt}\bodyfont\color{text}%
+    \ifdefined\SummaryOverride\SummaryOverride\else\thesummary\fi\par}\fi}
+\newcommand{\printskills}{\ifcatalog\else\ifdefined\SkillsOverride\SkillsOverride\else\theskills\fi\fi}
+
+\newcommand{\masterheader}{%
+  \begin{center}
+    {\fontsize{25pt}{25pt}\headerfont\bfseries\color{darktext}\FactName\FactPostNominal}\par\vspace{2.2mm}
+    {\fontsize{10.5pt}{13pt}\bodyfont\color{awesome}\printheadline}\par\vspace{1.4mm}
+    {\fontsize{9.5pt}{12pt}\bodyfont\color{text}\FactCity\ \textbar\ \FactPhone\ \textbar\ \FactEmail}\par\vspace{0.5mm}
+    {\fontsize{9.5pt}{12pt}\bodyfont\color{text}\FactLinkedIn\ \textbar\ \FactGitHub\ \textbar\ \FactWebsite\onlyfor{rs,uxr}{\ \textbar\ \FactScholar}}\par
+  \end{center}\vspace{-1mm}}
+
+\newcommand{\msection}[1]{%
+  \par\ifonepage\vspace{2pt}\else\vspace{6pt}\fi
+  \noindent{\fontsize{12.5pt}{14pt}\bodyfont\bfseries\color{awesome}#1}\par\ifonepage\vspace{1pt}\else\vspace{1.5pt}\fi
+  \noindent{\color{lightgray}\rule{\linewidth}{0.6pt}}\par\ifonepage\vspace{1.5pt}\else\vspace{2pt}\fi}
+
+% \cvrole{employer}{location}{title}{dates}  -- then \bul ... \printbullets
+\newcommand{\cvrole}[4]{%
+  \par\needspace{5\baselineskip}\ifonepage\vspace{2.5pt}\else\vspace{4.5pt}\fi
+  \noindent{\fontsize{10.5pt}{13pt}\bodyfont\bfseries\color{darktext}#1}\hfill{\fontsize{9.5pt}{13pt}\bodyfont\color{darktext}#2}\par\nopagebreak
+  \noindent{\fontsize{10pt}{12.5pt}\bodyfont\color{darktext}#3}\hfill{\fontsize{9.5pt}{12.5pt}\bodyfont\color{darktext}#4}\par\nopagebreak}
+
+% A second (earlier) appointment with the same employer: prints title + dates
+% under the employer already printed by \cvrole. Harvard Law's resume guidance:
+% "If you have held more than one job with the same employer, enter both jobs
+% under one header." Keeps one employer/one location for a parser to read.
+\newcommand{\cvsubrole}[2]{%
+  \par\needspace{3\baselineskip}%
+  \noindent{\fontsize{10pt}{12.5pt}\bodyfont\color{darktext}#1}\hfill{\fontsize{9.5pt}{12.5pt}\bodyfont\color{darktext}#2}\par\nopagebreak}
+
+\newcommand{\skillline}[2]{\par\noindent\hangindent=1.2em{\fontsize{10pt}{12.6pt}\bodyfont\color{text}\textbf{#1:} #2}\par\vspace{1.5pt}}
+\newcommand{\pubitem}[1]{\par\noindent\hangindent=1.2em{\fontsize{9.5pt}{12pt}\bodyfont\color{text}#1}\par\vspace{2pt}}
+\newcommand{\eduline}[3]{\par\noindent{\fontsize{10pt}{12.6pt}\bodyfont\color{text}\textbf{#1}, #2}\hfill{\fontsize{9.5pt}{12.6pt}\bodyfont\color{darktext}#3}\par\vspace{1pt}}
+\newcommand{\me}{\textbf{C.~E.~Tejada}}
+
+% ---------------------------------------------------------------------
+% 6. Cover-letter paragraph bank: \letterpara{id}{role types}{text}, \usepara{id}
+% ---------------------------------------------------------------------
+\def\paralist{}
+\newcommand{\letterpara}[3]{\csgdef{para@#1}{#3}\csgdef{paratags@#1}{#2}\listgadd\paralist{#1}}
+\newcommand{\usepara}[1]{\ifcsdef{para@#1}{\csuse{para@#1}}{\slot{missing paragraph "#1"}}}

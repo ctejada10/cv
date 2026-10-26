@@ -1,0 +1,5 @@
+Paste the full job posting here (title, team, responsibilities, requirements,
+tech stack, location, salary if listed, and the application URL).
+
+Why: the build reports which of the posting's terms your résumé covers, and in
+three weeks you'll want to know exactly what you applied to.

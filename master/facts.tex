@@ -1,0 +1,168 @@
+% =====================================================================
+% master/facts.tex -- the single source of truth
+% ---------------------------------------------------------------------
+% Every date, title, count and contact detail in the résumé and the
+% cover letter comes from here. Tailor an application by CHOOSING and
+% ORDERING content, never by changing a value in an application file.
+%
+% \unverified[label]{value} marks a value that disagrees between your old files,
+% or one I couldn't confirm. Draft builds show it in orange with a "?".
+% Application builds refuse to finish while any remain.
+% When you've checked a value against your records, delete the
+% \unverified{ } wrapper around it (keep the value).
+% =====================================================================
+
+% ---------------- Identity and contact ----------------
+\newcommand{\FactName}{Carlos E. Tejada}
+% Post-nominal on the resume and letter header only (the CV does not need it:
+% the whole document is the credential, and the signature block stays plain).
+% Set to {} to drop it. When it is set, the headline should NOT also end in
+% \"Ph.D. in Computer Science\" -- one or the other, never both.
+\newcommand{\FactPostNominal}{, Ph.D.}
+% Use the city you live in. Only write "New York, NY" if that's true.
+\newcommand{\FactCity}{NYC metro area}          % confirmed 2026-09-12
+\newcommand{\FactPhone}{}
+\newcommand{\FactEmail}{\slink{mailto:carlos@carlosetejada.com}{carlos@carlosetejada.com}}
+\newcommand{\FactWebsite}{\slink{https://carlosetejada.com}{carlosetejada.com}}
+% Put your LinkedIn handle in BOTH places below, then remove \unverified.
+\newcommand{\FactLinkedIn}{\slink{https://www.linkedin.com/in/ctejada10}{linkedin.com/in/ctejada10}}
+\newcommand{\FactGitHub}{\slink{https://github.com/ctejada10}{github.com/ctejada10}}
+\newcommand{\FactScholar}{\slink{https://scholar.google.com/citations?user=oo_ptugAAAAJ}{Google Scholar}}
+% Work status is deliberately left off (decision of 2026-09-11).
+
+% ---------------- University of Washington ----------------
+\newcommand{\FactUWOrg}{University of Washington}
+% You work remotely from the US; a screener reads the most recent location to
+% place you. Inherits \FactCity so there is one city in one place.
+\newcommand{\FactUWLocation}{Remote (\FactCity)}
+% cv/employment.tex says "Postdoctoral Fellow"; UW's HR title for postdocs is
+% usually "Postdoctoral Scholar". Use exactly what your appointment letter says.
+\newcommand{\FactUWTitle}{Postdoctoral Researcher}    % confirmed 2026-09-12
+% Confirmed 2026-09-11. cv/employment.tex said 2023; corrected there too.
+\newcommand{\FactUWDates}{2025 -- Present}
+\newcommand{\FactUWStudyN}{12}                  % blind and low-vision participants (confirmed 2026-09-11)
+\newcommand{\FactUWPaperVenue}{CHI 2027}        % lead-author paper, submitted Sep 2026, under review. Topic stays OUT of every built PDF: the listing carries authorship position, venue and status only.
+% The title stays OFF the resume while the paper is under double-blind review;
+% describe it instead. The title itself, and the preflight rule that keeps it
+% out of every build, live in master/blocked.txt (untracked).
+\newcommand{\FactUWPaperDesc}{Lead author on a multidisciplinary submission}
+\newcommand{\FactUWMentees}{four}     % undergraduate researchers you mentor (2026-09-12)
+\newcommand{\FactUWTeam}{eight}        % faculty, postdoctoral and undergraduate researchers (2026-09-12)
+% Latency improvement on the Bluetooth/HID path, your estimate (2026-09-11).
+% Be ready to say what was measured: command -> pins updated, before vs after.
+\newcommand{\FactUWLatency}{30\%}
+
+% ---------------- Aarhus University ----------------
+\newcommand{\FactAUOrg}{Aarhus University}
+\newcommand{\FactAULocation}{Aarhus, Denmark}
+% cv/employment.tex says "Postdoctoral Fellow"; Danish contracts usually say "Postdoc".
+\newcommand{\FactAUTitle}{Postdoctoral Researcher}    % confirmed 2026-09-12
+\newcommand{\FactAUDates}{2023 -- 2024}                % confirmed 2026-09-11
+% Neither Aarhus tool was evaluated, so both bullets claim capability and no
+% outcome. Any result sentence here needs a study behind it first.
+
+\newcommand{\FactAUProjects}{three}     % projects worked on at Aarhus (confirmed 2026-09-12)
+
+% ---------------- Netcompany ----------------
+\newcommand{\FactNCOrg}{Netcompany A/S}
+\newcommand{\FactNCShort}{Netcompany}                 % in prose
+\newcommand{\FactNCAbout}{listed Danish IT services firm, 7,000+ staff}
+\newcommand{\FactNCLocation}{Copenhagen, Denmark}
+% Official title per cv/employment.tex, and what an employment check returns.
+% Use exactly this; confirm against your contract.
+\newcommand{\FactNCTitle}{IT Consultant}
+\newcommand{\FactNCDates}{2021 -- 2023}               % Jun 2021 -- Jun 2023; bare years keep the page consistent
+\newcommand{\FactNCTeams}{six}
+\newcommand{\FactNCLanguages}{four}
+\newcommand{\FactNCFone}{87\%}                  % F1. Add the baseline it replaced if you can find it.
+\newcommand{\FactNCOverhead}{30\%}
+\newcommand{\FactNCToolTeams}{four}
+\newcommand{\FactNCClients}{three}
+
+% ---------------- Ph.D. (University of Copenhagen) ----------------
+\newcommand{\FactPhDOrg}{University of Copenhagen}
+\newcommand{\FactPhDLocation}{Copenhagen, Denmark}
+\newcommand{\FactPhDTitle}{Ph.D. Fellow}
+\newcommand{\FactPhDDates}{2018 -- 2021}        % employment at UCPH; the Ph.D. began at RIT in 2017
+% Figures below come from the papers themselves (PDFs on carlosetejada.com).
+% AirTouch and EchoTube report technical evaluations with no participant study
+% and no significance tests; Blowhole collected data from ten people. There is
+% no counterbalanced, significance-tested study in the record -- see
+% master/retired-claims.txt (git-ignored) for what that rules out.
+\newcommand{\FactPhDAccuracy}{91--100\%}   % AirTouch, across its four test objects (CHI 2020)
+\newcommand{\FactPhDBlowAccuracy}{98\%}    % Blowhole (GI 2018)
+\newcommand{\FactPhDSamples}{830}          % Blowhole: "830 blow segments from ten participants"
+\newcommand{\FactPhDDataParticipants}{ten}  % Blowhole data collection
+\newcommand{\FactPhDTheses}{two}                  % master's theses supervised (cv/supervision.tex)
+
+% ---------------- Rochester Institute of Technology ----------------
+\newcommand{\FactRITOrg}{Rochester Institute of Technology}
+\newcommand{\FactRITLocation}{Rochester, NY}
+% Two appointments, stacked under one employer header (2026-09-11):
+% Ph.D. Fellow 2017--2018 (the doctorate's first year, before Copenhagen) and
+% Graduate Research Assistant 2014--2016 (alongside the M.Sc.).
+\newcommand{\FactRITTitle}{Ph.D. Fellow}
+\newcommand{\FactRITDatesPhD}{2017 -- 2018}
+\newcommand{\FactRITTitleGRA}{Graduate Research Assistant}
+\newcommand{\FactRITDatesGRA}{2014 -- 2016}
+% Bitey figures, per the paper (carlosetejada.com/documents/papers/bitey.pdf):
+%   78% mean accuracy (SD 15%), above 90% for some participants
+%   noise: 1.64 h of recordings, 83,942 candidates, 674 (.8%) false positives,
+%          5,255 of 44,324 clicks missed (11.9%); noise is a class in the SVM
+\newcommand{\FactBiteyAccuracy}{78\%}
+\newcommand{\FactBiteyFP}{0.8\%}
+\newcommand{\FactBiteyMissed}{11.9\%}
+\newcommand{\FactBiteyN}{20}
+% M.Sc. capstone, "Knock on Wood" (May 2016), sole author. Figures from the
+% capstone document: SVM 84.03%, random forest 72.92%, naive Bayes 57.64% over
+% five materials; the 5-fold cross-validated model scored 97% and then failed
+% on new recordings, because samples from one microphone placement fell on
+% both sides of the split.
+\newcommand{\FactKoWAccuracy}{84\%}
+\newcommand{\FactKoWClasses}{five}
+\newcommand{\FactKoWLeak}{97\%}
+% No count on file for the RIT undergraduates; the bullet works without one.
+% If you remember a number, put it here and say "Mentored N undergraduate...".
+
+
+% ---------------- Tous Software ----------------
+\newcommand{\FactTousOrg}{Tous Software Corp.}
+\newcommand{\FactTousLocation}{Miramar, FL}
+% One line so a reader knows what the company is; the bullets mention telecom
+% partners and carrier systems. Confirm the wording.
+\newcommand{\FactTousAbout}{CRM and PBX software}     % confirmed 2026-09-12
+\newcommand{\FactTousTitle}{Senior Software Developer}
+% LinkedIn (written at the time) records Tous as Feb 2012 -- Jul 2014, and a
+% Junior Software Engineer role at Synergies Corp. Oct 2011 -- Feb 2012. The
+% "2011" belongs to Synergies, not Tous. Industry total is unchanged at 5.
+\newcommand{\FactTousDates}{2012 -- 2014}
+\newcommand{\FactTousTeam}{three}             % three other developers; the bullet says "led three developers"
+\newcommand{\FactTousClients}{five}           % "at least 5", enterprise; stated as five to stay conservative
+
+% ---------------- Synergies (academic CV only; usually omitted) ----------------
+\newcommand{\FactSynOrg}{Synergies Strategic Services}
+\newcommand{\FactSynLocation}{Santiago, Dominican Republic}
+\newcommand{\FactSynTitle}{Junior Software Developer}
+\newcommand{\FactSynDates}{2011 -- 2012}
+
+% ---------------- Education ----------------
+\newcommand{\FactPhDDegree}{Ph.D., Computer Science}
+\newcommand{\FactPhDYear}{2021}
+\newcommand{\FactMScDegree}{M.Sc., Information Science}
+\newcommand{\FactMScYear}{2016}
+\newcommand{\FactBScDegree}{B.Sc., Systems Engineering}
+\newcommand{\FactBScOrg}{Pontificia Universidad Católica Madre y Maestra}
+\newcommand{\FactBScYear}{2012}    % confirmed 2026-09-12; matches cv/education.tex
+
+% ---------------- Publications ----------------
+\newcommand{\FactPubs}{ten}          % peer-reviewed: 8 full papers + CHI'20 doctoral consortium + CHI'20 SIG
+\newcommand{\FactPapers}{eight}         % full conference papers
+\newcommand{\FactFirstAuthor}{four}    % first-authored full papers: AirLogic, AirTouch, EchoTube, Blowhole
+\newcommand{\FactVenues}{CHI, UIST, ISS, TEI, MobileHCI and GI}
+% Two errors in cv/publications.tex to fix there: LaCir is CHI 2024 (its DOI is
+% a CHI '24 DOI; the CV says 2021), and MorpheesPlug reuses AirTouch's DOI.
+
+% ---------------- Totals used in summaries ----------------
+% Recompute once the dates above are settled.
+\newcommand{\FactYearsIndustry}{five}   % Synergies 2011-12 + Tous 2012--2014 + Netcompany 2021--2023
+\newcommand{\FactYearsResearch}{six}   % Ph.D. 2018--21 (3) + RIT doctoral yr (1) + Aarhus (1) + UW (1+)

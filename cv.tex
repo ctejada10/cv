@@ -1,0 +1,44 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+% Awesome CV LaTeX Template for CV/Resumé
+% https://github.com/posquit0/Awesome-CV
+
+% Configs
+\documentclass[11pt, a4paper]{awesome-cv}
+\geometry{left=3cm, top=1.8cm, right=3cm, bottom=1.8cm, footskip=.5cm}
+\fontdir[fonts/]
+\definecolor{awesome}{HTML}{222A68}
+\setbool{acvSectionColorHighlight}{false}
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+%	Personal Info
+\name{Carlos E.}{Tejada}
+%\position{PhD Fellow}
+% \address{Anker Heegaards Gade 1. 1752 Copenhagen W, Denmark}
+\email{carlos@carlosetejada.com}
+\homepage{www.carlosetejada.com}
+\googlescholar{oo_ptugAAAAJ}{Carlos E. Tejada}
+% \github{ctejada10}
+
+% Document
+\begin{document}
+
+  \makecvheader
+  \makecvfooter
+    {\today\\}
+    {Carlos E. Tejada~~~·~~~Curriculum Vitae}
+    {\thepage}
+
+  \input{cv/education.tex}
+  \input{cv/employment.tex}
+  \input{cv/publications.tex}
+  \input{cv/supervision.tex}
+  \input{cv/service.tex}
+  \input{cv/other.tex}
+  % Referees' addresses, emails and mobile numbers. Off by default: this
+  % repository and the CV built from it are public, and those details belong
+  % to other people. Build with references only when an application asks:
+  %   scripts/build.sh cv --with-references
+  \ifdefined\WithReferences\input{cv/references.tex}\fi
+
+\end{document}

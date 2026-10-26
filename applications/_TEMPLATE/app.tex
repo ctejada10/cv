@@ -1,0 +1,62 @@
+% =====================================================================
+% applications/_TEMPLATE/app.tex
+% ---------------------------------------------------------------------
+% One folder per application:
+%   scripts/new-application.sh acme ds "Data Scientist, Growth"
+% creates applications/YYYY-MM-DD-acme-ds/ with this file and posting.txt.
+% Then:
+%   1. Paste the posting into posting.txt.
+%   2. Fill in below.
+%   3. scripts/build.sh app applications/YYYY-MM-DD-acme-ds
+% Output lands in that folder's out/ : the two PDFs, the preflight report and
+% the master commit they were built from.
+%
+% Rules
+%   * Choose and order content here. Never change a fact here: facts live in
+%     master/facts.tex, so every application tells the same story.
+%   * Bullet IDs and their role types: build/master/resume-master-catalog.pdf
+%   * Letter paragraph IDs: build/master/cover-letter-master.pdf
+%   * applications/ is git-ignored (this repo is public on GitHub).
+% =====================================================================
+
+% ---------------- The posting ----------------
+% One-page build (drops Tous, caps each role's bullets, publications to one
+% line). Use it for analyst and product-analytics roles, and wherever a
+% two-page Ph.D. resume would read as overqualified. Uncomment to switch:
+% \def\OnePageFlag{1}
+
+\def\archetype{ds}                  % ds | mle | de | rs | uxr
+\def\Company{Company}
+\def\Role{Role title, exactly as posted}
+\def\ReqID{}                        % optional requisition ID
+\def\TeamClause{}                   % optional, e.g. { on the Growth team}
+
+% ---------------- Résumé ----------------
+\def\ExcludeIDs{}                   % bullets to drop, e.g. {aarhus-ts,tous-portal}
+\def\IncludeIDs{}                   % bullets to add from another role type, e.g. {uw-codesign}
+% Optional overrides. Keep them factual.
+%\def\HeadlineOverride{Data Science \& Applied Machine Learning \textbar{} Ph.D. in Computer Science (HCI)}
+%\def\SummaryOverride{...}
+%\def\SkillsOverride{\skillline{Methods}{...}\skillline{Data \& code}{...}\skillline{Tools}{...}}
+% Reword one bullet for this posting (same facts, different emphasis):
+%\expandafter\def\csname override@nc-nlp\endcsname{...}
+
+% ---------------- Cover letter ----------------
+% Skip the letter when it's optional at a large company and you have nothing
+% specific to say: spend the time getting a referral instead.
+\def\RecipientName{Hiring Team}     % a real name if you can find one
+\def\RecipientLines{\Company}       % add a team or city line if useful
+\def\LetterSalutation{Dear \Company{} Hiring Team,}
+% 1. Hook (45-65 words): their problem in their words + your closest match in one line (numbers go in the proofs)
+\def\LetterHook{I'm applying for the \Role{} role\TeamClause{} at \Company. \slot{their problem in their own words, then your closest match in one line}}
+% 2. Proof 1 (bank paragraph) + one custom sentence
+\def\LetterProofA{\usepara{proof-nc-nlp}}
+\def\LetterProofACustom{\slot{one sentence tying this to their problem}}
+% 3. Proof 2 (bank paragraph) + transition sentence
+\def\LetterProofB{\usepara{proof-uw-study}}
+\def\LetterProofBCustom{}
+\def\LetterTransition{\usepara{transition-ds}}
+% 4. Why them (40-60 words): one checkable fact about them + what you'd do with it
+\def\LetterWhyThem{\slot{one fact about them you could only know from their product, data, posting or public writing, and what you'd do with it in your first months}}
+% 5. Close (20-35 words)
+\def\LetterClose{I'd welcome the chance to talk about \slot{the problem from your hook}. Thank you for your time and consideration.}

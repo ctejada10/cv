@@ -1,0 +1,7 @@
+# Applications stay private: this repo is public on GitHub.
+# Only the blank template is tracked; every real application folder,
+# its settings, its posting text and its built PDFs stay local.
+/*
+!/.gitignore
+!/_TEMPLATE/
+/_TEMPLATE/out/

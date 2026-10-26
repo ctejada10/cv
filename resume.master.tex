@@ -1,0 +1,232 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+% =====================================================================
+% resume.master.tex -- MASTER RÉSUMÉ
+% ---------------------------------------------------------------------
+% One source for every application. Nothing here is sent as-is:
+%   scripts/build.sh master   -> build/master/resume-master-catalog.pdf
+%                                every bullet, with its [id | role types]
+%   scripts/build.sh bases    -> build/bases/resume-<type>.pdf
+%   scripts/build.sh app applications/<file>.tex
+%                             -> build/applications/<file>/Carlos-Tejada-Resume.pdf
+% Compiling this file directly (e.g. in VS Code) gives the catalog.
+%
+% Role types (archetypes):
+%   ds  = Data Scientist            mle = ML / AI Engineer
+%   de  = Data Engineer             rs  = Research Scientist (HCI, accessibility)
+%   uxr = Quantitative / mixed-methods UX Researcher
+%
+% How the content is organized
+%   * Each \bul{id}{role types}{text} is ONE accomplishment in ONE phrasing.
+%     Variants of the same accomplishment share a stem (uw-system, uw-system.ds).
+%   * Order inside a role = print order, strongest first.
+%   * Numbers, titles and dates come from master/facts.tex (\Fact... macros).
+%   * To add something new: add a \bul with a new id under the right role,
+%     tag it, rebuild the catalog. Never add a fact only in an application file.
+% =====================================================================
+\documentclass[11pt, letterpaper]{awesome-resume}
+\input{master/preamble.tex}
+\input{master/facts.tex}
+\hypersetup{pdftitle={Carlos E. Tejada - Resume}, pdfauthor={Carlos E. Tejada}, pdfsubject={Resume}}
+
+% ---------------- Headline: the line under your name ----------------
+% A field label, not a job title you haven't held. Override per application
+% with \def\HeadlineOverride{...} if a posting calls the field something else.
+\headlinefor{ds}{Data Science \& Applied Machine Learning \textbar{} Experiment Design \& Evaluation}
+\headlinefor{mle}{Machine Learning Engineering \textbar{} Python, NLP \& LLM Applications}
+\headlinefor{de}{Data Engineering \textbar{} Azure, PySpark \& SQL}
+\headlinefor{rs}{Human-Centered AI, Digital Fabrication \& Accessibility}
+\headlinefor{uxr}{Mixed-Methods UX Research \textbar{} Accessibility \& AI Tools}
+
+% ---------------- Skills blocks (only what you can defend in an interview) ----------------
+% Also on file, but leave off unless you can discuss them: XGBoost, Kubernetes,
+% AWS, Databricks, Delta Lake, Azure ML, React, JavaScript, PHP, Matplotlib,
+% Seaborn, Autodesk Meshmixer, Linux, CI/CD.
+\newcommand{\skillsblock}{%
+  \msection{Skills}
+  \skillsfor{ds}{%
+    \skillline{Methods}{Statistics and experiment design (parameter studies, cross-validation, error analysis) · classification · regression · time series · NLP · retrieval-augmented generation}
+    \skillline{Data \& code}{Python (pandas, NumPy, scikit-learn, PyTorch, TensorFlow) · SQL (PostgreSQL, Spark SQL, SQL Server) · PySpark · Azure (Data Lake, Functions)}
+    \skillline{Tools}{Power BI · Git · Docker · Flask · FastAPI · OpenAI API}}
+  \skillsfor{mle}{%
+    \skillline{ML}{PyTorch · TensorFlow · scikit-learn · OpenAI API · retrieval-augmented generation · model monitoring and retraining}
+    \skillline{Engineering}{Python · SQL · Java · Go · Flask · FastAPI · REST APIs · Docker · Git}
+    \skillline{Data}{PySpark · Spark SQL · PostgreSQL · SQL Server · Azure (Data Lake, Functions)}}
+  \skillsfor{de}{%
+    \skillline{Pipelines}{PySpark · Spark SQL · Azure (Data Lake, Functions) · ETL · data modeling}
+    \skillline{Databases \& code}{PostgreSQL · SQL Server · Python · SQL · Java}
+    \skillline{Operations}{Role-based access control · audit logging · Docker · Git · Power BI}}
+  \skillsfor{rs}{%
+    \skillline{Research methods}{Empirical evaluation of interactive systems · qualitative studies (think-aloud, thematic analysis) · participatory design}
+    \skillline{Systems}{Python · machine learning (scikit-learn, PyTorch) · signal processing · LLM APIs · geometry processing (trimesh, Shapely) · OpenSCAD · refreshable tactile displays}
+    \skillline{Fabrication}{3D printing · pneumatic, acoustic and ultrasonic sensing}}
+  \skillsfor{uxr}{%
+    \skillline{Methods}{Think-aloud usability studies · participatory design · thematic analysis · questionnaires · interaction-log analysis}
+    \skillline{Analysis}{Python (pandas) · SQL · statistics (descriptive analysis, cross-validation) · data visualization}
+    \skillline{Prototyping}{Python/Flask web apps · screen-reader accessibility · tactile displays · 3D printing}}
+  \printskills}
+
+\begin{document}
+\masterheader
+
+% =====================================================================
+\msection{Summary}
+% Under 50 words, checkable facts only. Override per application with
+% \def\SummaryOverride{...}. Checkable facts only; no career totals.
+\summaryfor{ds}{Computer scientist with \FactYearsIndustry{} years in industry and \FactYearsResearch{} in applied-ML research. At \FactNCShort, built Azure/PySpark pipelines over billions of records a month and a \FactNCLanguages-language document classifier (\FactNCFone{} F1); at the University of Washington, built a retrieval-augmented LLM prototype and led a \FactUWStudyN-participant study.}
+\summaryfor{mle}{Computer scientist who builds ML systems end to end, from PySpark pipelines on Azure to Python services (Flask, FastAPI) and LLM features. Shipped a \FactNCLanguages-language document classifier (\FactNCFone{} F1) that stayed accurate through data drift, and a real-time system that streams 3D geometry to braille displays.}
+\summaryfor{de}{Computer scientist with production data-engineering experience at \FactNCShort: Azure/PySpark ETL over billions of vehicle-telemetry records a month, Spark SQL and PostgreSQL, role-based access control and audit logging across \FactNCClients{} client systems, and self-service tooling that cut reporting overhead \FactNCOverhead.}
+\summaryfor{rs}{HCI researcher building interactive systems where machine learning, digital fabrication and accessibility meet. \FactPubs{} peer-reviewed publications at \FactVenues{} (Honorable Mention, ISS 2019). Now leading nonvisual CAD research for blind and low-vision people at the University of Washington, and lead author on a multidisciplinary paper under review at \FactUWPaperVenue.}
+\summaryfor{uxr}{Mixed-methods researcher who pairs study design with engineering: builds and instruments the prototype, runs the sessions, and analyzes transcripts and interaction logs together. Most recently led a qualitative study with \FactUWStudyN{} blind and low-vision participants; earlier designed the evaluations behind \FactFirstAuthor{} first-author papers on new sensing techniques.}
+\printsummary
+
+% =====================================================================
+\msection{Experience}
+
+% ---------------- University of Washington ----------------
+% Ownership settled 2026-09-11: the ranking inside YOUR prototype is yours.
+% The summer 2026 view-selection / slice-scoring pipelines are your mentees'
+% work and are credited as mentoring (uw-mentor), not as your engineering.
+\onepagemax{2}
+\cvrole{\FactUWOrg}{\FactUWLocation}{\FactUWTitle\ifarch{rs,uxr}{ (HCI \& Accessibility)}{ (Applied ML \& Accessibility)}}{\FactUWDates}
+\bul{uw-rag}{ds,mle}{Prototyped a retrieval-augmented LLM companion (Python, OpenAI API): ranks a model's cross-sections, feeds the top-k most informative to the LLM, and returns descriptions of shapes and of changes between versions.}
+\bul{uw-rag.rs}{rs}{Built a retrieval-augmented LLM companion for 3D captioning: ranks every cross-section of a model, retrieves the top-k most informative slices, and grounds an LLM (OpenAI API) in them to describe shapes and changes between versions.}
+\bul{uw-study.ds}{ds}{Designed and ran an IRB-approved study with \FactUWStudyN{} blind and low-vision participants, analyzing interaction logs in Python alongside session transcripts; lead author on the resulting submission.}
+\bul{uw-study}{rs,uxr}{Led an IRB-approved qualitative study with \FactUWStudyN{} blind and low-vision participants, who compared 3D-printed and virtual models while thinking aloud; lead author on the resulting submission.}
+\bul{uw-system.ds}{ds,mle,de}{Lead developer of a nonvisual CAD system: a Python backend slices 3D models on demand and streams each cross-section to refreshable braille displays from a browser app that needs no install; released as open source.}
+\bul{uw-system}{rs,uxr}{Lead developer of a nonvisual CAD system that lets blind and low-vision people explore and edit 3D models by touch: a Python backend slices STL geometry on demand and streams it to refreshable pin displays (APH Monarch, Dot Pad) from a screen-reader-accessible web app.}
+\bul{uw-logs}{de,uxr}{Instrumented every command in the system and analyzed participants' interaction logs in Python (per-task timelines, command frequencies) alongside thematic analysis of the session transcripts.}
+\bul{uw-codesign}{rs,uxr}{Designed the interaction model with a DeafBlind co-designer and co-author through sustained participatory design: axis-aligned slicing, fixed-step depth control, and outline, fill and cut rendering modes.}
+\bul{uw-infra}{mle,de}{Cut latency to the displays by \FactUWLatency{} by rebuilding the Bluetooth/HID path, and moved the backend onto lab servers so participants run everything in Chrome with nothing installed.}
+\bul{uw-wizard}{uxr}{Built a guided, in-app study flow that walks participants through models and questionnaires, keeping every session consistent.}
+\bul{uw-mentor}{mle,rs}{Set technical direction for an \FactUWTeam-person team of faculty, postdoctoral and undergraduate researchers, and mentor \FactUWMentees{} undergraduates building view-selection and slice-scoring pipelines.}
+\bul{uw-workshop}{uxr}{Co-facilitated a tactile design workshop with blind and low-vision students, and demoed the system at an assistive-technology meetup at the New York Public Library.}
+% The LLM descriptions have had no formal evaluation (confirmed 2026-09-11), so
+% uw-rag claims no quality result -- "prototyped" is the honest verb. If one ever
+% runs (N descriptions rated, error categories, grounded vs ungrounded), add it
+% to uw-rag: that sentence is the single biggest upgrade available to this role.
+\printbullets
+
+% ---------------- Aarhus University ----------------
+% Settled 2026-09-11: neither tool was evaluated and neither was demoed
+% publicly, so both bullets describe capability and claim no outcome. The
+% time-series work was early-stage, so the verbs say so. The third project
+% produced a paper you are not an author on -- not resume material.
+\onepagemax{1}
+\cvrole{\FactAUOrg}{\FactAULocation}{\FactAUTitle\ifarch{rs,uxr}{ (LLMs \& Digital Fabrication)}{ (Applied ML \& LLM Systems)}}{\FactAUDates}
+\bul{aarhus-llm-cad}{ds,mle,rs}{Built an LLM-powered design tool (Python, FastAPI, OpenSCAD) that turns a plain-language prompt into printable CAD for interactive devices, validating the generated geometry against fabrication constraints so what reaches the printer is buildable.}
+% If the MODEL emitted the OpenSCAD (rather than you writing it), swap in this
+% wording -- it is the difference between a toolchain bullet and a code-generation
+% one, and it answers CodeLLM experience on AI-for-code postings:
+%\bul{aarhus-llm-cad.code}{mle,rs}{Built an LLM-powered design tool (Python, FastAPI) that writes OpenSCAD from a plain-language prompt and checks the generated code's geometry against fabrication constraints before anything reaches the printer.}
+\bul{aarhus-nlq}{ds,mle,de,uxr}{Built a natural-language query layer (Python, FastAPI, LLM) that let non-technical collaborators pull answers from research datasets without writing queries.}
+\bul{aarhus-ts}{ds,mle,de,rs}{Prototyped and benchmarked time-series models (PyTorch, scikit-learn) that turn sensor signals from 3D-printed devices into discrete events, comparing candidates against baselines on accuracy, latency and reliability to set the modeling direction for \FactAUProjects{} projects.}
+\printbullets
+
+% ---------------- Netcompany ----------------
+% The domain is vehicle telemetry for traffic analytics (free-flow speed,
+% congestion). Wording below reconstructs that from your description on
+% 2026-09-11 -- correct any term that isn't how the work was actually framed.
+\onepagemax{2}
+\cvrole{\FactNCOrg\ {\mdseries\color{text}(\FactNCAbout)}}{\FactNCLocation}{\FactNCTitle\ (Data \& ML)}{\FactNCDates}
+\bul{nc-nlp}{ds,mle,rs}{Replaced manual triage at a government client with a \FactNCLanguages-language document classifier (scikit-learn, TensorFlow) that routes tens of thousands of documents a month to the right team: \FactNCFone{} F1, held through drift with periodic retraining.}
+\bul{nc-etl}{ds,mle,de,rs,uxr}{Built an Azure/PySpark ETL pipeline (Spark SQL, PostgreSQL) that turns billions of vehicle-telemetry records a month into trip-level tables behind traffic speed and travel-time models; technical contact for \FactNCTeams{} sales, operations and business-development teams.}
+\bul{nc-tools}{ds,de,uxr}{Cut reporting overhead \FactNCOverhead{} for \FactNCToolTeams{} teams by automating data workflows (Python, SQL, REST APIs, Azure Functions) and building Power BI dashboards on free-flow speed and congestion that senior leadership used weekly.}
+\bul{nc-sparktuning}{de,mle}{Profiled Spark SQL execution plans and tuned partitioning and broadcast joins to cut job runtimes.}
+\bul{nc-automl}{mle}{Built the retraining loop behind the classifier: benchmarks and tunes candidate models against incoming data as distributions shift, replacing manual experimentation.}
+\bul{nc-gov}{de}{Implemented role-based access control and audit logging for sensitive data across \FactNCClients{} client systems to meet contractual and regulatory requirements.}
+\printbullets
+
+% ---------------- Ph.D. ----------------
+\onepagemax{1}
+\cvrole{\FactPhDOrg}{\FactPhDLocation}{\FactPhDTitle\ (Doctoral Researcher, HCI)}{\FactPhDDates}
+\bul{phd-experiments}{ds,rs,uxr}{Designed and ran the empirical evaluations behind the \FactFirstAuthor{} first-author papers of my doctorate: parameter sweeps over chamber geometry, outlet spacing and tube dimensions, measured against ground truth, that set the final design of each sensing technique.}
+\bul{phd-ml}{ds,mle,de}{Built real-time classification pipelines (Python, scikit-learn; windowed features, RBF-kernel SVMs) for touch on 3D-printed objects (\FactPhDAccuracy{} accuracy, no per-user calibration) and for blow-activated input (\FactPhDBlowAccuracy{}, cross-validated on \FactPhDSamples{} labeled samples from \FactPhDDataParticipants{} participants).}
+\bul{phd-tooling}{mle,rs}{Built design tooling on Autodesk Meshmixer's scripting API that generates sensor geometry inside users' own 3D models, so non-experts could fabricate custom interactive objects.}
+\bul{phd-mentor}{rs,uxr}{Supervised \FactPhDTheses{} master's theses; one became a TEI 2022 paper (ClipWidgets).}
+\printbullets
+
+% ---------------- RIT ----------------
+\unlessonepage{%
+\onepagemax{1}
+\cvrole{\FactRITOrg}{\FactRITLocation}{\FactRITTitle}{\FactRITDatesPhD}
+\unlessonepage{\cvsubrole{\FactRITTitleGRA}{\FactRITDatesGRA}}
+\bul{rit-acoustic}{ds,mle,de}{Built the acoustic classification pipeline (Python, scikit-learn; FFT features, RBF-kernel SVM) behind Bitey, a tooth-click input technique sensed through a nine-dollar bone-conduction microphone, and ran the \FactBiteyN-participant data collection and evaluation behind it: \FactBiteyAccuracy{} mean accuracy across up to five click classes.}
+\bul{rit-noise}{none}{Made it usable outside the lab by training a noise class from 1.6 hours of talking, walking, eating and driving: \FactBiteyFP{} of 84,000 non-click events misclassified as clicks, at the cost of \FactBiteyMissed{} missed clicks.}
+\bul{rit-capstone}{ds,mle}{Built an acoustic material classifier for my M.Sc.\ capstone (Python, scikit-learn; FFT features over a swept tone) so laser cutters and CNC mills could load the right settings automatically: \FactKoWAccuracy{} across \FactKoWClasses{} materials, more than ten points above random forest and naive Bayes.}
+\bul{rit-leakage}{ds,mle,de}{Found the leak behind it: five-fold cross-validation scored \FactKoWLeak{} because recordings from a single microphone placement landed on both sides of the split; rebuilt the evaluation on held-out placements, which is where the \FactKoWAccuracy{} comes from.}
+\bul{rit-apps}{uxr}{Built two live applications on the tooth-click technique, a list selector and an on-screen keyboard, to test it in use rather than on recordings.}
+\bul{rit-mentor}{ds,mle,rs,uxr}{Mentored undergraduate researchers through their lab projects, from study design and data collection to feature extraction, classifier training and analysis.}
+\bul{rit-bitey}{rs,uxr}{Co-authored Bitey (MobileHCI 2016), hands-free interface control through tooth-click gestures, with clinical researchers at the University of Rochester Medical Center.}
+\printbullets}
+
+% ---------------- Tous Software ----------------
+% Printed for industry builds only (2026-09-11). On a research or UX resume a
+% 2012--14 developer job is filler, and dropping it costs no timeline: RIT
+% picks up in 2014. Any application can re-enable it from the bank.
+\unlessonepage{\onlyfor{ds,mle,de}{%
+\cvrole{\FactTousOrg\ {\mdseries\color{text}(\FactTousAbout)}}{\FactTousLocation}{\FactTousTitle}{\FactTousDates}
+\bul{tous-portal}{ds,mle,de}{Led \FactTousTeam{} developers building the customer-facing reporting portal across the company's CRM and PBX products (Java, PHP, Go), plus the REST APIs telecom partners integrated with; \FactTousClients{} enterprise clients used it, their leadership running the reports for operating decisions.}
+\bul{tous-integrations}{de,mle}{Replaced manual coordination between carriers with automated data exchange, building the inbound integrations to their systems.}
+\bul{tous-db}{de}{Designed the database schema and tuned the queries behind clients' on-demand reports across both product lines.}
+\printbullets}}
+
+% ---------------- Synergies (catalog only) ----------------
+\catalogonly{%
+  \cvrole{\FactSynOrg}{\FactSynLocation}{\FactSynTitle}{\FactSynDates}
+  {\fontsize{9pt}{11pt}\bodyfont\color{gray}From the academic CV; no bullets on file. Usually omitted.}\par}
+
+% =====================================================================
+% Skills (every role type except rs puts them here; rs puts them after publications)
+\ifcatalog\skillsblock\else\ifarch{rs}{}{\skillsblock}\fi
+
+% =====================================================================
+% Publications
+\newcommand{\pubsummary}{\FactPubs{} peer-reviewed publications, including \FactPapers{} full papers at \FactVenues{} (\FactFirstAuthor{} first-authored); Honorable Mention, ISS 2019. Full list: \FactScholar.}
+\newcommand{\pubunderreview}{\textit{Under review:} \FactUWPaperDesc{} to \FactUWPaperVenue. Title and details withheld during double-blind review.}
+\newcommand{\pubAirTouch}{\me, R. Ramakers, S. Boring, D. Ashbrook. \href{https://doi.org/10.1145/3313831.3376136}{AirTouch: 3D-printed Touch-Sensitive Objects Using Pneumatic Sensing}. CHI 2020.}
+\newcommand{\pubEchoTube}{\me, J. McIntosh, K. A. Bergen, S. Boring, D. Ashbrook, A. Marzo. \href{https://doi.org/10.1145/3343055.3359712}{EchoTube: Robust Touch Sensing along Flexible Tubes using Waveguided Ultrasound}. ISS 2019. \textbf{Honorable Mention.}}
+\newcommand{\pubAirLogic}{\me, V. Savage, M. Zhong, R. Ramakers, D. Ashbrook, H. Kim. \href{https://doi.org/10.1145/3526113.3545642}{AirLogic: Embedding Pneumatic Computation and I/O in 3D Models to Fabricate Electronics-Free Interactive Objects}. UIST 2022.}
+\newcommand{\pubLaCir}{N. C. Buch, \me, V. Savage, D. Ashbrook. \href{https://doi.org/10.1145/3613904.3642888}{LaCir: A Multilayered Laser-cuttable Material to Co-fabricate Circuitry and Structural Components}. CHI 2024.}
+\newcommand{\pubClipWidgets}{A. Visschedijk, H. Kim, \me, D. Ashbrook. \href{https://doi.org/10.1145/3490149.3501314}{ClipWidgets: 3D-printed Modular Tangible UI Extensions for Smartphones}. TEI 2022.}
+\newcommand{\pubMorpheesPlug}{H. Kim, A. Everitt, \me, M. Zhong, D. Ashbrook. MorpheesPlug: A Toolkit for Prototyping Shape-Changing Interfaces. CHI 2021.}
+\newcommand{\pubBlowhole}{\me, O. Fujimoto, Z. Li, D. Ashbrook. \href{https://doi.org/10.20380/GI2018.18}{Blowhole: Blowing-Activated Tags for Interactive 3D-Printed Models}. GI 2018.}
+\newcommand{\pubBitey}{D. Ashbrook, \me, D. Mehta, A. Jiminez, G. Muralitharam, S. Gajendra, R. Tallents. \href{https://doi.org/10.1145/2935334.2935389}{Bitey: An Exploration of Tooth Click Gestures for Hands-Free User Interface Control}. MobileHCI 2016.}
+\newcommand{\pubOther}{\textit{Also peer-reviewed:} \me. Print-and-Play: 3D-printed Interactive Objects Without Assembly or Calibration. CHI 2020 Extended Abstracts (Doctoral Consortium). \textbullet{} A. Alvarado Garcia, \dots, \me, M. Wong-Villacres. Fostering HCI Research in, by, and for Latin America. CHI 2020 Extended Abstracts (SIG).}
+
+\ifcatalog
+  \msection{Publications}
+  {\fontsize{8.5pt}{11pt}\bodyfont\color{gray}Catalog: rs prints the full list below. ds and mle print the summary line + AirTouch, EchoTube, AirLogic. uxr prints the summary line + under-review paper, AirTouch, Bitey. de prints the summary line only.}\par\vspace{3pt}
+  \pubitem{\pubsummary}\pubitem{\pubunderreview}\pubitem{\pubLaCir}\pubitem{\pubAirLogic}\pubitem{\pubClipWidgets}\pubitem{\pubMorpheesPlug}\pubitem{\pubAirTouch}\pubitem{\pubEchoTube}\pubitem{\pubBlowhole}\pubitem{\pubBitey}\pubitem{\pubOther}
+\else\ifonepage
+  \msection{Publications}\pubitem{\pubsummary}
+\else
+  \ifarch{ds,mle}{\msection{Selected Publications}\pubitem{\pubsummary}\pubitem{\pubAirTouch}\pubitem{\pubEchoTube}\pubitem{\pubAirLogic}}{}
+  \ifarch{uxr}{\msection{Selected Publications}\pubitem{\pubsummary}\pubitem{\pubunderreview}\pubitem{\pubAirTouch}\pubitem{\pubBitey}}{}
+  \ifarch{de}{\msection{Publications}\pubitem{\pubsummary}}{}
+  \ifarch{rs}{\msection{Publications}\pubitem{\pubunderreview}\pubitem{\pubLaCir}\pubitem{\pubAirLogic}\pubitem{\pubClipWidgets}\pubitem{\pubMorpheesPlug}\pubitem{\pubAirTouch}\pubitem{\pubEchoTube}\pubitem{\pubBlowhole}\pubitem{\pubBitey}\pubitem{\pubOther}}{}
+\fi\fi
+
+% Skills for research-scientist builds
+\ifcatalog\else\ifarch{rs}{\skillsblock}{}\fi
+
+% =====================================================================
+% Service, talks and press (research scientist builds and the catalog)
+\unlessonepage{\onlyfor{rs}{%
+  \msection{Service \& Talks}
+  \pubitem{Program committee, Late-Breaking Work, CHI 2021 \textbullet{} Assistant to the Program Committee Chairs, Accessibility and Aging, CHI 2020.}
+  \pubitem{Reviewer: CHI, UIST, TOCHI, IMWUT, ISS, TEI, MobileHCI, IEEE Pervasive Computing (2018--2023).}
+  \pubitem{Invited talk: ``Enabling Non-experts to Author Tangible Interactions,'' Human-Computer Integration Lab, Chicago, 2020 \textbullet{} Press: Arduino Blog on AirTouch, 2020.}}}
+\catalogonly{%
+  \pubitem{\textit{Training (catalog only):} UIST School, Hasso Plattner Institute, 2018 \textbullet{} ACM SIGCHI Summer School on Computational Interaction, ETH Zurich, 2017.}}
+
+% =====================================================================
+\msection{Education}
+\eduline{\FactPhDDegree}{\FactPhDOrg}{\FactPhDYear}
+\eduline{\FactMScDegree}{\FactRITOrg}{\FactMScYear}
+\eduline{\FactBScDegree}{\FactBScOrg}{\FactBScYear}
+
+\end{document}
+
+% Retired claims (what was removed and why) live in master/retired-claims.txt,
+% which is git-ignored: this repository is public.
